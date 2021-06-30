@@ -1,90 +1,71 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import {Next, Previous} from './micro-components/NavigationBar';
+import { Next, Previous } from './micro-components/PaginationBar';
+import Navbar from "./micro-components/Navbar";
+import styled from "styled-components";
 
 
-
-const Home = (props) => {
+const Home = () => {
 
     const [animeData, setAnimeData] = useState([]);
-    const [paginationTotal, setPaginationTotal] = useState(12);
-    // const [routing, setRouting] = useState();
     //el nombre del useParams debe coincidir con el nombre de la ruta dinamica
     const {id} = useParams();
     const url = `https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${id}`;
+    //los nombres de las variables se encuemtran en snake case y mayusculas para evitar confundirlos con los componentes
+    const DIV_MAIN_CONTAINER = styled.div`
+        width: 65em;
+        background-Color: blue;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    `;
+    const DIV_CARD = styled.div`
+        margin: 0 auto;
+        width: 20em;
+        background-color: violet;
+    `;
+const p = {
+    textAlign: "center"
+}
 
+    //obtencion de datos de la api, caratulas de las series, nombres
     useEffect(() => {
         const fetchingAnimeData = async () => {
             const res = await  fetch( url );
-            // se destructura la data para que pueda ser púesta dentro del array del hook, si no solo aparece com un array vacio, y el objeto fuera de este
-            const {data} = await res.json();
-            console.log(data)
-            setAnimeData(data);
+            // se destructura la data para que pueda ser púesta dentro del array del hook, si no solo aparece como un array vacio, y el objeto fuera de este.
+            const { data } = await res.json();
+            console.log( data )
+            setAnimeData( data );
         }
         fetchingAnimeData();
     }, [url])
 
-    const Navbar = () => {
-        return(
-            <div className="Navbar_container" style={ navbarStyle }>
-                <Link to="/" onClick={()=>setPaginationTotal(0)}>AnimeInfo</Link>
-            </div>
-        )
-    }
-
-    const handleChange = () => {
-        const nextPag = paginationTotal+12;
-        console.log(`proxima pagina: ${nextPag}`)
-        console.log(`actual id: ${id}`)
-
-        return ( 
-            setPaginationTotal(nextPag)
-         );
-    }
-
-    console.log(id)
     return(
         <div>
-            <Navbar />
-                    
+            <Navbar />    
             <div>
                 <input type="text" placeholder="buscar novela"/>
                 <button>buscar</button>
             </div>
-            <div style={contentContainer}>
-                
+
+            <DIV_MAIN_CONTAINER>
                 {animeData.map(data => {
                     return (
-                        <div key={data.id} style={cardContainer}>
+                        <DIV_CARD key={ data.id }>
                             <p>{ data.attributes.canonicalTitle }</p>
                             <img src={ data.attributes.posterImage.tiny } alt="" />
                             <Link to={`/anime/details/${ data.id }`}>see more</Link>
-                        </div>
+                        </DIV_CARD>
                     )
                 })}
+            </DIV_MAIN_CONTAINER>
 
-            </div>
             <div>
-                <Previous paginationTotal={paginationTotal} handleChange={handleChange} id={id}/>
-                <Next paginationTotal={paginationTotal} handleChange={handleChange} id={id}/>    
+                <Previous id={ id }/>
+                <Next id={ id }/>    
             </div>        
         </div>
     )
 }
 
-const navbarStyle = {
-        display: "flex"     
-}
-const contentContainer = {
-        width: "65em",
-        backgroundColor: "blue",
-        margin: "0 auto",
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)"
-}
-const cardContainer = {
-        margin: "0 auto",
-        width: "20em",
-        backgroundColor: "violet"
-}
 export default Home;
