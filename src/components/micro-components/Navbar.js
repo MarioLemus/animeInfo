@@ -9,11 +9,11 @@ function Navbar() {
         textDecoration: "none",
         color: "#fff"
     }
-
     const DIV_NAVBAR =styled.div`
         background-color: red;
         text-align: center;
     `;
+
     return (
         <DIV_NAVBAR>
             <Link to="/" style={logoLink} >AnimeInfo</Link>

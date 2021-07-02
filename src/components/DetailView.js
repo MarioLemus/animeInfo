@@ -1,6 +1,7 @@
 // import React, {useEffect, useState} from "react";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
+import Navbar from "./micro-components/Navbar";
  
 const DetailView = () => {
     const idParam = useParams()
@@ -21,6 +22,7 @@ const DetailView = () => {
 
     return (
         <div>
+            <Navbar />
             <div style={p}>{!detailData ? (<p>LOADING...</p>) : (
                     <div>
                         <p>{detailData.attributes.canonicalTitle}</p>

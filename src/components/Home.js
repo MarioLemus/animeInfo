@@ -14,19 +14,49 @@ const Home = () => {
     //los nombres de las variables se encuemtran en snake case y mayusculas para evitar confundirlos con los componentes
     const DIV_MAIN_CONTAINER = styled.div`
         width: 65em;
-        background-Color: blue;
         margin: 0 auto;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+    
     `;
     const DIV_CARD = styled.div`
         margin: 0 auto;
-        width: 20em;
-        background-color: violet;
+        width: 13em;
+   
     `;
-const p = {
-    textAlign: "center"
-}
+    const P_TITLE = styled.p`
+        color: #fff;
+        text-align: center;
+    `;
+    const IMG_PORTRAIT = styled.img`
+        display: block;
+        margin: 0 auto;
+    `;
+    const DIV_PAGINATION_BAR = styled.div`
+        background-color: red;
+        height: 3em;
+        display: flex;
+        align-items: center;
+        
+    `;
+    const DIV_SEARCH_OPTION = styled.div`
+        display: flex;    
+        justify-content: center;
+        align-items: center;
+        height: 5em;
+    `;
+    const INPUT_SEARCH_BAR = styled.input`
+        width: 500px;
+        height: 1.5em;
+    `;
+    const BUTTON_SEARCH_BAR = styled.button`
+        padding: 5.52px;
+        background-color: red;
+        border: none;
+    `;
+    const link = {
+        textDecoration: "none"
+    }
 
     //obtencion de datos de la api, caratulas de las series, nombres
     useEffect(() => {
@@ -43,27 +73,39 @@ const p = {
     return(
         <div>
             <Navbar />    
-            <div>
-                <input type="text" placeholder="buscar novela"/>
-                <button>buscar</button>
-            </div>
+            <DIV_SEARCH_OPTION>
+                <div>
+                    <INPUT_SEARCH_BAR type="text" placeholder="buscar novela"/>
+                    <BUTTON_SEARCH_BAR>buscar</BUTTON_SEARCH_BAR>
+                </div>
+            </DIV_SEARCH_OPTION>
 
             <DIV_MAIN_CONTAINER>
                 {animeData.map(data => {
+
+                    const anime = {
+                        id: data.id,
+                        title: data.attributes.canonicalTitle,
+                        imgTiny: data.attributes.posterImage.tiny
+                    }
+
                     return (
-                        <DIV_CARD key={ data.id }>
-                            <p>{ data.attributes.canonicalTitle }</p>
-                            <img src={ data.attributes.posterImage.tiny } alt="" />
-                            <Link to={`/anime/details/${ data.id }`}>see more</Link>
+                        <DIV_CARD key={ anime.id }>
+                            <Link style={link} to={`/anime/details/${ anime.id }`}>
+                                <IMG_PORTRAIT src={ anime.imgTiny } alt="" />
+                                <P_TITLE>{ anime.title }</P_TITLE>   
+                            </Link>
                         </DIV_CARD>
                     )
                 })}
             </DIV_MAIN_CONTAINER>
 
-            <div>
-                <Previous id={ id }/>
-                <Next id={ id }/>    
-            </div>        
+            <DIV_PAGINATION_BAR>
+                    <div>
+                        <Previous id={ id }/>
+                        <Next id={ id }/>    
+                    </div>
+            </DIV_PAGINATION_BAR>        
         </div>
     )
 }
