@@ -5,18 +5,19 @@ import styled from "styled-components";
 function Navbar() {
     //estilos del link de la navegacion
     const logoLink = {
-        fontSize: "45px",
+        fontSize: "40px",
         textDecoration: "none",
-        color: "#fff"
+        color: "#d9ebe9",
+        fontFamily: "'Pacifico', 'cursive'"
     }
     const DIV_NAVBAR =styled.div`
-        background-color: red;
+        background-color: #000000;
         text-align: center;
     `;
 
     return (
         <DIV_NAVBAR>
-            <Link to="/" style={logoLink} >AnimeInfo</Link>
+            <Link to="/" style={logoLink}>Anime<span style={{color: "#798f8c"}}>Info</span></Link>
         </DIV_NAVBAR>
     );
 }

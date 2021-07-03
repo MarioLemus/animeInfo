@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import { Next, Previous } from './micro-components/PaginationBar';
+import { PrevButton, NextButton } from './micro-components/PaginationBar';
 import Navbar from "./micro-components/Navbar";
+import SearchBar from './micro-components/SearchBar';
 import styled from "styled-components";
 
 
 const Home = () => {
 
     const [animeData, setAnimeData] = useState([]);
-    //el nombre del useParams debe coincidir con el nombre de la ruta dinamica
-    const {id} = useParams();
-    const url = `https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${id}`;
-    //los nombres de las variables se encuemtran en snake case y mayusculas para evitar confundirlos con los componentes
-    const DIV_MAIN_CONTAINER = styled.div`
+    // const [searchAnimeShow, setSearchAnimeShow] = useState('');
+    const {CurrentRouteId} = useParams();
+    const url = `https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${CurrentRouteId}`;
+    const DIV_CARD_CONTAINER = styled.div`
         width: 65em;
         margin: 0 auto;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-    
+        min-height: 60em;
+        font-family: 'Manrope', sans-serif;
     `;
     const DIV_CARD = styled.div`
         margin: 0 auto;
@@ -25,46 +26,33 @@ const Home = () => {
    
     `;
     const P_TITLE = styled.p`
-        color: #fff;
+        color: #d9ebe9;
         text-align: center;
+        font-size: 15px;
     `;
     const IMG_PORTRAIT = styled.img`
         display: block;
         margin: 0 auto;
     `;
     const DIV_PAGINATION_BAR = styled.div`
-        background-color: red;
-        height: 3em;
+        height: 2em;
         display: flex;
-        align-items: center;
-        
+        align-items: center;   
+        justify-content: center; 
     `;
-    const DIV_SEARCH_OPTION = styled.div`
-        display: flex;    
-        justify-content: center;
-        align-items: center;
-        height: 5em;
+    const DIV_BUTTON_CONTAINER = styled.div`
+        width: 230px;
+        text-align: center;
     `;
-    const INPUT_SEARCH_BAR = styled.input`
-        width: 500px;
-        height: 1.5em;
-    `;
-    const BUTTON_SEARCH_BAR = styled.button`
-        padding: 5.52px;
-        background-color: red;
-        border: none;
-    `;
-    const link = {
+    const animeShowLink = {
         textDecoration: "none"
     }
 
-    //obtencion de datos de la api, caratulas de las series, nombres
     useEffect(() => {
         const fetchingAnimeData = async () => {
             const res = await  fetch( url );
-            // se destructura la data para que pueda ser púesta dentro del array del hook, si no solo aparece como un array vacio, y el objeto fuera de este.
             const { data } = await res.json();
-            console.log( data )
+            console.log( data );
             setAnimeData( data );
         }
         fetchingAnimeData();
@@ -73,38 +61,35 @@ const Home = () => {
     return(
         <div>
             <Navbar />    
-            <DIV_SEARCH_OPTION>
-                <div>
-                    <INPUT_SEARCH_BAR type="text" placeholder="buscar novela"/>
-                    <BUTTON_SEARCH_BAR>buscar</BUTTON_SEARCH_BAR>
-                </div>
-            </DIV_SEARCH_OPTION>
+            <SearchBar />
 
-            <DIV_MAIN_CONTAINER>
+            <DIV_CARD_CONTAINER>
                 {animeData.map(data => {
 
-                    const anime = {
-                        id: data.id,
-                        title: data.attributes.canonicalTitle,
-                        imgTiny: data.attributes.posterImage.tiny
+                    const animeShow = {
+                        hasId: data.id,
+                        hasTitle: data.attributes.canonicalTitle,
+                        hasImgTiny: data.attributes.posterImage.tiny
                     }
 
                     return (
-                        <DIV_CARD key={ anime.id }>
-                            <Link style={link} to={`/anime/details/${ anime.id }`}>
-                                <IMG_PORTRAIT src={ anime.imgTiny } alt="" />
-                                <P_TITLE>{ anime.title }</P_TITLE>   
+                        <DIV_CARD key={ animeShow.hasId }>
+                            <Link style={animeShowLink} to={`/anime/details/${ animeShow.hasId }`}>
+                                <IMG_PORTRAIT src={ animeShow.hasImgTiny } alt="" />
+                                <P_TITLE>{ animeShow.hasTitle }</P_TITLE>   
                             </Link>
                         </DIV_CARD>
                     )
                 })}
-            </DIV_MAIN_CONTAINER>
+            </DIV_CARD_CONTAINER>
 
             <DIV_PAGINATION_BAR>
-                    <div>
-                        <Previous id={ id }/>
-                        <Next id={ id }/>    
-                    </div>
+                <DIV_BUTTON_CONTAINER>
+
+                    <PrevButton CurrentRouteId={ CurrentRouteId }/>
+                    <NextButton CurrentRouteId={ CurrentRouteId }/>
+                        
+                </DIV_BUTTON_CONTAINER>
             </DIV_PAGINATION_BAR>        
         </div>
     )
