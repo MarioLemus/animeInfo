@@ -1,52 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from "react-router-dom";
-import { PrevButton, NextButton } from './micro-components/PaginationBar';
+import { useParams } from "react-router-dom";
+import { PrevButton, NextButton } from './micro-components/TotalButton';
 import Navbar from "./micro-components/Navbar";
 import SearchBar from './micro-components/SearchBar';
 import styled from "styled-components";
+import CardLink from './childrenComponents/CardLink';
 
+const DIV_CARD_CONTAINER = styled.div`
+    width: 65em;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    min-height: 60em;
+    font-family: 'Manrope', sans-serif;
+`;
+const DIV_CARD = styled.div`
+    margin: 0 auto;
+    width: 13em;
+
+`;
+const P_TITLE = styled.p`
+    color: #d9ebe9;
+    text-align: center;
+    font-size: 15px;
+`;
+const IMG_PORTRAIT = styled.img`
+    display: block;
+    margin: 0 auto;
+`;
+const DIV_PAGINATION_BAR = styled.div`
+    height: 2em;
+    display: flex;
+    align-items: center;   
+    justify-content: center; 
+    margin-bottom: 10px;
+`;
+const DIV_BUTTON_CONTAINER = styled.div`
+    width: 230px;
+    text-align: center;
+`;
 
 const Home = () => {
 
     const [animeData, setAnimeData] = useState([]);
-    // const [searchAnimeShow, setSearchAnimeShow] = useState('');
-    const {CurrentRouteId} = useParams();
-    const url = `https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${CurrentRouteId}`;
-    const DIV_CARD_CONTAINER = styled.div`
-        width: 65em;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        min-height: 60em;
-        font-family: 'Manrope', sans-serif;
-    `;
-    const DIV_CARD = styled.div`
-        margin: 0 auto;
-        width: 13em;
-   
-    `;
-    const P_TITLE = styled.p`
-        color: #d9ebe9;
-        text-align: center;
-        font-size: 15px;
-    `;
-    const IMG_PORTRAIT = styled.img`
-        display: block;
-        margin: 0 auto;
-    `;
-    const DIV_PAGINATION_BAR = styled.div`
-        height: 2em;
-        display: flex;
-        align-items: center;   
-        justify-content: center; 
-    `;
-    const DIV_BUTTON_CONTAINER = styled.div`
-        width: 230px;
-        text-align: center;
-    `;
-    const animeShowLink = {
-        textDecoration: "none"
-    }
+    const {currentAnimeShows} = useParams();
+    const url = `https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${currentAnimeShows}`;
+    const animeShowLink = {textDecoration: "none"};
 
     useEffect(() => {
         const fetchingAnimeData = async () => {
@@ -58,6 +57,8 @@ const Home = () => {
         fetchingAnimeData();
     }, [url])
 
+    
+const d = <PrevButton currentAnimeShows={ currentAnimeShows }/>;
     return(
         <div>
             <Navbar />    
@@ -74,10 +75,10 @@ const Home = () => {
 
                     return (
                         <DIV_CARD key={ animeShow.hasId }>
-                            <Link style={animeShowLink} to={`/anime/details/${ animeShow.hasId }`}>
+                            <CardLink animeShowLink={animeShowLink} currentAnimeShows={currentAnimeShows} animeShow={animeShow}>
                                 <IMG_PORTRAIT src={ animeShow.hasImgTiny } alt="" />
                                 <P_TITLE>{ animeShow.hasTitle }</P_TITLE>   
-                            </Link>
+                            </CardLink>
                         </DIV_CARD>
                     )
                 })}
@@ -85,10 +86,8 @@ const Home = () => {
 
             <DIV_PAGINATION_BAR>
                 <DIV_BUTTON_CONTAINER>
-
-                    <PrevButton CurrentRouteId={ CurrentRouteId }/>
-                    <NextButton CurrentRouteId={ CurrentRouteId }/>
-                        
+                    {d}
+                    <NextButton currentAnimeShows={ currentAnimeShows }/>
                 </DIV_BUTTON_CONTAINER>
             </DIV_PAGINATION_BAR>        
         </div>

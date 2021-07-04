@@ -15,10 +15,10 @@ const Routes = () => {
                     <Route exact path="/">
                         <Home />
                     </Route>
-                    <Route exact path="/anime/:CurrentRouteId">
+                    <Route exact path="/anime/:currentAnimeShows">
                         <Home />
                     </Route>
-                    <Route exact path="/anime/details/:currentRouteId">
+                    <Route exact path="/anime/:currentAnimeShows/details/:animeShowId">
                         <DetailView />
                     </Route>
                 </Switch>
