@@ -45,6 +45,8 @@ const Home = () => {
     const [animeData, setAnimeData] = useState([]);
     const {currentAnimeShows} = useParams();
     const url = `https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${currentAnimeShows}`;
+    const ANIMESHOWLIMIT = 11;
+    const startAnimeShow = parseInt(currentAnimeShows) || 0;
     const animeShowLink = {textDecoration: "none"};
 
     useEffect(() => {
@@ -57,8 +59,9 @@ const Home = () => {
         fetchingAnimeData();
     }, [url])
 
-    
-const d = <PrevButton currentAnimeShows={ currentAnimeShows }/>;
+    console.log(`inicio del parametro: ${startAnimeShow}`)
+    // console.log(animeData.length === 0 ? console.log('no data') : console.log('data'))
+
     return(
         <div>
             <Navbar />    
@@ -86,7 +89,7 @@ const d = <PrevButton currentAnimeShows={ currentAnimeShows }/>;
 
             <DIV_PAGINATION_BAR>
                 <DIV_BUTTON_CONTAINER>
-                    {d}
+                    {startAnimeShow > ANIMESHOWLIMIT && <PrevButton currentAnimeShows={ currentAnimeShows }/>}
                     <NextButton currentAnimeShows={ currentAnimeShows }/>
                 </DIV_BUTTON_CONTAINER>
             </DIV_PAGINATION_BAR>        
