@@ -61,15 +61,17 @@ const Home = () => {
 
     console.log(`inicio del parametro: ${startAnimeShow}`)
     // console.log(animeData.length === 0 ? console.log('no data') : console.log('data'))
-
+    // console.table(animeData)
     return(
         <div>
             <Navbar />    
             <SearchBar />
 
             <DIV_CARD_CONTAINER>
+            {!animeData ? console.log('loading data in return statement'): console.log('data all ready load')}
+            
                 {animeData.map(data => {
-
+                    
                     const animeShow = {
                         hasId: data.id,
                         hasTitle: data.attributes.canonicalTitle,
