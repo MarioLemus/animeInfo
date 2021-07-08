@@ -61,10 +61,7 @@ const DetailView = () => {
         }
         fetchingAnimeData(url);
     }, [url])
-    
-	// console.log(detailData);
-    // console.log(`actual id de 2: ${animeShowId}`)
-    // console.log(`actual id de 1: ${currentAnimeShows}`)
+
     
     useEffect(() => {
         const HandleViewData = (data) => {
@@ -96,11 +93,22 @@ const DetailView = () => {
             <Navbar />
             <SearchBar />
             <BackButton currentAnimeShows={currentAnimeShows}/>
+            <div>
+                <div>
+                    <img src="" alt="" />
+                </div>
+                <div>
+                    {!detailData ? (<p>Loading</p>) : (
+                        <div>
+                            {animeShow.hasTitle === null ? '' : <P_TITLE>{animeShow.hasTitle}</P_TITLE>}
+                        </div>
+                    )}
+                </div>
+            </div>
 
             <DIV_CONTAINER>
                 {!detailData ? (<p>LOADING...</p>) : (
                     <div>
-                        {animeShow.hasTitle === null ? '' : <P_TITLE>{animeShow.hasTitle}</P_TITLE>}
                         {animeShow.hasSynopsis === null ? '' : <PRE_SYNOPSIS>{animeShow.hasSynopsis}</PRE_SYNOPSIS>}
 
                         {animeShow.hasStartDate === null ? '' : <div><p>Start date: {animeShow.hasStartDate}</p></div>}
@@ -110,7 +118,7 @@ const DetailView = () => {
                         {animeShow.hasStatus === null ? '' : <div><p>Status: {animeShow.hasStatus}</p></div>}
                         {animeShow.hasEpisodeLength === null ? '' : <div><p>Episode length: {animeShow.hasEpisodeLength} min</p></div>}
                         
-                        {animeShow.hasNsfwContent === false || null ? <div><p>No nsfw content content</p></div> : <div><p>Contains NSFW content</p></div>}
+                        {animeShow.hasNsfwContent === false || null ? <div><p>No nsfw content</p></div> : <div><p>Contains NSFW content</p></div>}
                         {animeShow.hasPopularityRank === null ? '' : <div><p>Popularity rank: {animeShow.hasPopularityRank}</p></div>}
                     </div>
                 )}

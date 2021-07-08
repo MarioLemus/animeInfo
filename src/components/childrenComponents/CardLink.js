@@ -1,8 +1,11 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const CardLink = ({children, animeShowLink, currentAnimeShows=0, animeShow}) => {
+
+const CardLink = ({children, currentAnimeShows=0, animeShowId}) => {
+    const animeShowLink = {textDecoration: "none"};
+
     return ( 
-        <Link style={animeShowLink} to={`/anime/${currentAnimeShows}/details/${ animeShow.hasId }`}>
+        <Link style={animeShowLink} to={`/anime/${currentAnimeShows}/details/${ animeShowId }`}>
             {children}
         </Link>
      );

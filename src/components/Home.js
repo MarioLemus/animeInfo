@@ -20,7 +20,7 @@ const DIV_CARD = styled.div`
 
 `;
 const P_TITLE = styled.p`
-    color: #d9ebe9;
+    color: #fff;
     text-align: center;
     font-size: 15px;
 `;
@@ -39,15 +39,19 @@ const DIV_BUTTON_CONTAINER = styled.div`
     width: 230px;
     text-align: center;
 `;
+const DIV_IMG_CONTAINER = styled.div`
+    margin: 0 auto;
+    height: 156px;
+    width: 110px;
+`;
 
 const Home = () => {
 
     const [animeData, setAnimeData] = useState([]);
-    const {currentAnimeShows} = useParams();
+    const { currentAnimeShows } = useParams();
     const url = `https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${currentAnimeShows}`;
     const ANIMESHOWLIMIT = 11;
     const startAnimeShow = parseInt(currentAnimeShows) || 0;
-    const animeShowLink = {textDecoration: "none"};
 
     useEffect(() => {
         const fetchingAnimeData = async () => {
@@ -60,16 +64,12 @@ const Home = () => {
     }, [url])
 
     console.log(`inicio del parametro: ${startAnimeShow}`)
-    // console.log(animeData.length === 0 ? console.log('no data') : console.log('data'))
-    // console.table(animeData)
     return(
         <div>
             <Navbar />    
             <SearchBar />
 
             <DIV_CARD_CONTAINER>
-            {!animeData ? console.log('loading data in return statement'): console.log('data all ready load')}
-            
                 {animeData.map(data => {
                     
                     const animeShow = {
@@ -80,8 +80,10 @@ const Home = () => {
 
                     return (
                         <DIV_CARD key={ animeShow.hasId }>
-                            <CardLink animeShowLink={animeShowLink} currentAnimeShows={currentAnimeShows} animeShow={animeShow}>
-                                <IMG_PORTRAIT src={ animeShow.hasImgTiny } alt="" />
+                            <CardLink currentAnimeShows={currentAnimeShows} animeShowId={animeShow.hasId}>
+                                <DIV_IMG_CONTAINER>
+                                    <IMG_PORTRAIT src={ animeShow.hasImgTiny } alt="" />
+                                </DIV_IMG_CONTAINER>
                                 <P_TITLE>{ animeShow.hasTitle }</P_TITLE>   
                             </CardLink>
                         </DIV_CARD>
