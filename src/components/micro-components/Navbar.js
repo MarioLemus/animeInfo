@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 
-const DIV_NAVBAR =styled.header`
+const DIV_NAVBAR = styled.header`
     background-color: #000000;
     text-align: center;
 `;

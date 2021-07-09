@@ -6,9 +6,20 @@ import SearchBar from "./micro-components/SearchBar";
 import styled from "styled-components";
 import { BackButton } from "./micro-components/TotalButton";
 
-const DIV_CONTAINER = styled.div`
+const DIV_MAIN_CONTAINER = styled.div`
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+`;
+const DIV_PRESENTATION_CARD = styled.div`
+    width: 25%;
+    margin: 0 auto;
+`;
+const DIV_SYNOPSIS_CONTAINER = styled.div`
     color: #fff;
     margin: 0 30px;
+    width: 75%;
+    min-height: 23rem;    
 `;
 const PRE_SYNOPSIS = styled.pre`
     white-space: pre-wrap;
@@ -19,11 +30,32 @@ const PRE_SYNOPSIS = styled.pre`
     font-family: 'Manrope', sans-serif;
     line-height: 1.5;
 `;
-const P_TITLE = styled.p`
-    font-size: 27px;
+const P_TITLE_SYNOPSIS = styled.p`
+    font-size: 23px;
     font-family: 'Manrope', sans-serif;
     color: red;
+    font-weight: 500;
 `;
+const P_INFO = styled.p`
+    padding-left: 4rem;
+    padding-right: 4rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    color: #fff;
+`;
+const P_PRESENTATION_TITLE = styled.p`
+    font-size: 20px;
+    font-family: 'Manrope', sans-serif;
+    color: red;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 1.3rem;
+    font-weight: 500;
+    text-align: center;
+`;
+
+
+
 
 
 const DetailView = () => {
@@ -51,7 +83,6 @@ const DetailView = () => {
             try {
                 const res = await  fetch(animeUrl);
                 const {data} = await res.json();
-                console.log(data);
                 setDetailData(data);
             } 
 
@@ -69,6 +100,7 @@ const DetailView = () => {
                 try {
                     setAnimeShow({
                         hasTitle: detailData.attributes.canonicalTitle,
+                        hasImg: detailData.attributes.posterImage.tiny,
                         hasSynopsis: detailData.attributes.description,
                         hasStartDate: detailData.attributes.startDate,
                         hasFinished: detailData.attributes.endDate,
@@ -88,41 +120,37 @@ const DetailView = () => {
     }, [detailData])
     
     
+    console.log(detailData)
     return (
         <div>
             <Navbar />
             <SearchBar />
-            <BackButton currentAnimeShows={currentAnimeShows}/>
-            <div>
-                <div>
-                    <img src="" alt="" />
-                </div>
-                <div>
-                    {!detailData ? (<p>Loading</p>) : (
+
+            <DIV_MAIN_CONTAINER>
+                <DIV_PRESENTATION_CARD>
+                    {animeShow.hasImg === null ? '' : <div><img style={{display: 'block', margin: '0 auto', marginTop: '-2rem'}} src={animeShow.hasImg} alt="" /></div>}
+                    {animeShow.hasTitle === null ? '' : <P_PRESENTATION_TITLE>{animeShow.hasTitle}</P_PRESENTATION_TITLE>}
+                    {animeShow.hasStatus === null ? '' : <P_INFO>Status: {animeShow.hasStatus}</P_INFO>}
+                    {animeShow.hasEpisodeCount === null ? '' : <P_INFO>Episode count: {animeShow.hasEpisodeCount}</P_INFO>}
+                    {animeShow.hasPopularityRank === null ? '' : <P_INFO>Popularity rank {animeShow.hasPopularityRank}</P_INFO>}
+                    {animeShow.hasEpisodeLength === null ? '' : <P_INFO>Episode length: {animeShow.hasEpisodeLength} min</P_INFO>}
+                    {animeShow.hasStartDate === null ? '' : <P_INFO>Start date: {animeShow.hasStartDate}</P_INFO>}
+                    {animeShow.hasFinished === null ? '' : <P_INFO>Ended at: {animeShow.hasFinished}</P_INFO>}
+                    {/* {animeShow.hasNsfwContent === false || null ? <p>No nsfw content</p> : <p>Contains NSFW content</p>} */}
+                </DIV_PRESENTATION_CARD>
+
+                <DIV_SYNOPSIS_CONTAINER>
+                    {!detailData ? (<p>LOADING...</p>) : (
                         <div>
-                            {animeShow.hasTitle === null ? '' : <P_TITLE>{animeShow.hasTitle}</P_TITLE>}
+                            <P_TITLE_SYNOPSIS>Synopsis:</P_TITLE_SYNOPSIS>
+                            {animeShow.hasSynopsis === null ? '' : <PRE_SYNOPSIS>{animeShow.hasSynopsis}</PRE_SYNOPSIS>}
                         </div>
                     )}
-                </div>
+                </DIV_SYNOPSIS_CONTAINER>   
+            </DIV_MAIN_CONTAINER>
+            <div style={{display: 'flex', justifyContent: 'flex-end', margin: '0 auto', width: '80%'}}>
+                <BackButton currentAnimeShows={currentAnimeShows}/>
             </div>
-
-            <DIV_CONTAINER>
-                {!detailData ? (<p>LOADING...</p>) : (
-                    <div>
-                        {animeShow.hasSynopsis === null ? '' : <PRE_SYNOPSIS>{animeShow.hasSynopsis}</PRE_SYNOPSIS>}
-
-                        {animeShow.hasStartDate === null ? '' : <div><p>Start date: {animeShow.hasStartDate}</p></div>}
-                        {animeShow.hasFinished === null ? '' : <div><p>Endede at: {animeShow.hasFinished}</p></div>}
-                        {animeShow.hasEpisodeCount === null ? '' : <div><p>Episode count: {animeShow.hasEpisodeCount}</p></div>}
-
-                        {animeShow.hasStatus === null ? '' : <div><p>Status: {animeShow.hasStatus}</p></div>}
-                        {animeShow.hasEpisodeLength === null ? '' : <div><p>Episode length: {animeShow.hasEpisodeLength} min</p></div>}
-                        
-                        {animeShow.hasNsfwContent === false || null ? <div><p>No nsfw content</p></div> : <div><p>Contains NSFW content</p></div>}
-                        {animeShow.hasPopularityRank === null ? '' : <div><p>Popularity rank: {animeShow.hasPopularityRank}</p></div>}
-                    </div>
-                )}
-            </DIV_CONTAINER>   
         </div>
     )
 }

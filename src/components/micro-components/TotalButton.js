@@ -26,6 +26,6 @@ export const NextButton = ({currentAnimeShows=0}) => {
 
 export const BackButton = ({currentAnimeShows=0}) => {
     return ( 
-        <Link to={`/anime/${currentAnimeShows}`}>go back</Link>
+        <Link style={button} to={`/anime/${currentAnimeShows}`}>go back</Link>
      );
 };

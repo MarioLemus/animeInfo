@@ -8,7 +8,7 @@ const DIV_SEARCH_CONTAINER = styled.div`
     justify-content: center;
     align-items: center;
     height: 5em;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.8rem;
 
 `;
 const INPUT_SEARCH = styled.input`
@@ -58,8 +58,6 @@ const SearchBar = () => {
         handleSearch(url)
     }, [url])
 
-
-    console.log(posibleAnimes)
 
     return ( 
         <div>
