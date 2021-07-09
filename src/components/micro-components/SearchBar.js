@@ -20,9 +20,9 @@ const DIV_SEARCH_LIST = styled.div`
     background-color: #fff;
     position: absolute;
     top: 16%;
-    left: 31.7%;
+    left: 31.3%;
     justify-content: center;
-    width: 496px;
+    width: 506px;
 `;
 const DIV_LIST = styled.div`
     color: #000;
@@ -32,6 +32,8 @@ const DIV_LIST = styled.div`
     padding-right: 0.5rem;
     display: flex;
     align-items: center;
+    font-family: 'Manrope', sans-serif;
+    border-bottom: 1px solid #0e1821;
     &:hover {
         background-color: red;
     }
