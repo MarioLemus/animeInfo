@@ -53,9 +53,23 @@ const P_PRESENTATION_TITLE = styled.p`
     font-weight: 500;
     text-align: center;
 `;
-
-
-
+const DIV_BACK_BUTTON_HOLDER = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 0.5rem;
+`;
+const DIV_IMG_CONTAINER = styled.div`
+    width: 110px;
+    height: 156px;
+    margin: 0 auto;
+`;
+const IMG = styled.img`
+    display: block;
+    margin: 0 auto;
+    margin-top: -2rem;
+`;
 
 
 const DetailView = () => {
@@ -65,15 +79,15 @@ const DetailView = () => {
     const url = `https://kitsu.io/api/edge/anime/${animeShowId}`;
     
     const finalData = {
-        hasTitle: "" || 'No Title Loaded...',
-        hasSynopsis: "" || 'No Synopsis Loaded...',
-        hasStartDate: "" || 'No data---',
+        hasTitle: "" || 'Loading',
+        hasSynopsis: "" || 'Loading',
+        hasStartDate: "" || 'No data',
         hasFinished: "" || 'No data',
         hasEpisodeCount: "" || 'No data',
         hasStatus: "" || 'No data',
-        hasEpisodeLength: "" || 'No data---',
-        hasNsfwContent: "" || 'No data---',
-        hasPopularityRank: "" || 'No data---',
+        hasEpisodeLength: "" || 'No data',
+        hasNsfwContent: "" || 'No data',
+        hasPopularityRank: "" || 'No data',
 
     };
     const [animeShow, setAnimeShow] = useState(finalData);
@@ -128,15 +142,16 @@ const DetailView = () => {
 
             <DIV_MAIN_CONTAINER>
                 <DIV_PRESENTATION_CARD>
-                    {animeShow.hasImg === null ? '' : <div><img style={{display: 'block', margin: '0 auto', marginTop: '-2rem'}} src={animeShow.hasImg} alt="" /></div>}
+                    {animeShow.hasImg === null ? '' : <DIV_IMG_CONTAINER><IMG src={animeShow.hasImg} alt="" /></DIV_IMG_CONTAINER>}
                     {animeShow.hasTitle === null ? '' : <P_PRESENTATION_TITLE>{animeShow.hasTitle}</P_PRESENTATION_TITLE>}
                     {animeShow.hasStatus === null ? '' : <P_INFO>Status: {animeShow.hasStatus}</P_INFO>}
+
                     {animeShow.hasEpisodeCount === null ? '' : <P_INFO>Episode count: {animeShow.hasEpisodeCount}</P_INFO>}
                     {animeShow.hasPopularityRank === null ? '' : <P_INFO>Popularity rank {animeShow.hasPopularityRank}</P_INFO>}
+
                     {animeShow.hasEpisodeLength === null ? '' : <P_INFO>Episode length: {animeShow.hasEpisodeLength} min</P_INFO>}
                     {animeShow.hasStartDate === null ? '' : <P_INFO>Start date: {animeShow.hasStartDate}</P_INFO>}
                     {animeShow.hasFinished === null ? '' : <P_INFO>Ended at: {animeShow.hasFinished}</P_INFO>}
-                    {/* {animeShow.hasNsfwContent === false || null ? <p>No nsfw content</p> : <p>Contains NSFW content</p>} */}
                 </DIV_PRESENTATION_CARD>
 
                 <DIV_SYNOPSIS_CONTAINER>
@@ -148,9 +163,10 @@ const DetailView = () => {
                     )}
                 </DIV_SYNOPSIS_CONTAINER>   
             </DIV_MAIN_CONTAINER>
-            <div style={{display: 'flex', justifyContent: 'flex-end', margin: '0 auto', width: '80%'}}>
+
+            <DIV_BACK_BUTTON_HOLDER>
                 <BackButton currentAnimeShows={currentAnimeShows}/>
-            </div>
+            </DIV_BACK_BUTTON_HOLDER>
         </div>
     )
 }
