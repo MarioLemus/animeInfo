@@ -20,7 +20,7 @@ const Navbar = () => {
     
     return (
         <DIV_NAVBAR>
-            <Link to="/" style={logoLink}>Anime<SPAN_LOGO>Info</SPAN_LOGO></Link>
+            <Link to="/AnimeInfo/" style={logoLink}>Anime<SPAN_LOGO>Info</SPAN_LOGO></Link>
         </DIV_NAVBAR>
     );
 }

@@ -14,7 +14,7 @@ const Routes = () => {
         <div>
             <Router>
                 <Switch>
-                    <Route exact path="/" component={Home} />
+                    <Route exact path="/AnimeInfo/" component={Home} />
                     <Route exact path="/anime/:currentAnimeShows" component={Home} />
                     <Route exact path="/anime/:currentAnimeShows/details/:animeShowId" component={DetailView} />
                     <Route path="*" component={Error404} />
