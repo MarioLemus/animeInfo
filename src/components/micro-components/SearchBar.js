@@ -13,6 +13,7 @@ const DIV_SEARCH_CONTAINER = styled.div`
 const INPUT_SEARCH = styled.input`
     width: 350px;
     height: 1.5em;
+    margin-top: 2rem;
     font-family: 'Manrope', sans-serif;
     @media (max-width: 552px) {
         width: 300px;

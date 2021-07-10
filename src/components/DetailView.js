@@ -10,16 +10,29 @@ const DIV_MAIN_CONTAINER = styled.div`
     display: flex;
     width: 90%;
     margin: 0 auto;
+    margin-top: 3rem;
+
+    @media (max-width: 1600px){
+        flex-wrap: wrap;
+    }
 `;
 const DIV_PRESENTATION_CARD = styled.div`
     width: 25%;
     margin: 0 auto;
+
+    @media (max-width: 1600px) {
+        width: 100%;
+        text-align: center;
+    }  
 `;
 const DIV_SYNOPSIS_CONTAINER = styled.div`
     color: #fff;
     margin: 0 30px;
     width: 75%;
-    min-height: 23rem;    
+    min-height: 23rem;  
+    @media (max-width: 1600px) {
+        width: 100%;
+    }  
 `;
 const PRE_SYNOPSIS = styled.pre`
     white-space: pre-wrap;

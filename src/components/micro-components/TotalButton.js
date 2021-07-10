@@ -7,6 +7,7 @@ const button = {
     padding: "5px 25px",
     marginLeft: "5px",
     marginRight: "5px",
+    marginBottom: "1.5rem",
     textDecoration: "none",
     borderRadius: "3px",
     fontFamily: "'Manrope', 'sans-serif'"
