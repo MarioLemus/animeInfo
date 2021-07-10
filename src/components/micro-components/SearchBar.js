@@ -52,7 +52,7 @@ const DIV_LIST = styled.div`
 const DIV_SEARCH_LIST_CONTAINER = styled.div`
     width: 100%;
     position: absolute;
-    margin-top: -2rem;
+    margin-top: -1rem;
 `;
 
 const SearchBar = () => {
