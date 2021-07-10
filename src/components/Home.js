@@ -7,17 +7,22 @@ import styled from "styled-components";
 import CardLink from './childrenComponents/CardLink';
 
 const DIV_CARD_CONTAINER = styled.div`
-    width: 65em;
+    width: 80%;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     min-height: 60em;
     font-family: 'Manrope', sans-serif;
+    @media (max-width: 618px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 380px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 `;
 const DIV_CARD = styled.div`
     margin: 0 auto;
-    width: 13em;
-
+    width: 10rem;
 `;
 const P_TITLE = styled.p`
     color: #fff;

@@ -9,34 +9,49 @@ const DIV_SEARCH_CONTAINER = styled.div`
     align-items: center;
     height: 5em;
     margin-bottom: 0.8rem;
-
 `;
 const INPUT_SEARCH = styled.input`
-    width: 500px;
+    width: 350px;
     height: 1.5em;
     font-family: 'Manrope', sans-serif;
+    @media (max-width: 552px) {
+        width: 300px;
+    }
+    @media (max-width: 300px) {
+        width: 200px;
+    }
 `;
 const DIV_SEARCH_LIST = styled.div`
     background-color: #fff;
-    position: absolute;
-    top: 16%;
-    left: 31.3%;
+    margin: 0 auto;
     justify-content: center;
-    width: 506px;
+    width: 358px;
+    @media (max-width: 552px) {
+        width: 300px;
+    }
+    @media (max-width: 300px) {
+        width: 200px;
+    }
 `;
 const DIV_LIST = styled.div`
     color: #000;
     list-style: none;
-    height: 2.5rem;
+    height: 3.2rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     display: flex;
     align-items: center;
     font-family: 'Manrope', sans-serif;
     border-bottom: 1px solid #0e1821;
+
     &:hover {
         background-color: red;
     }
+`;
+const DIV_SEARCH_LIST_CONTAINER = styled.div`
+    width: 100%;
+    position: absolute;
+    margin-top: -2rem;
 `;
 
 const SearchBar = () => {
@@ -69,11 +84,11 @@ const SearchBar = () => {
                 {/* <BUTTON_SEARCH>buscar</BUTTON_SEARCH> */}
             </div>
             </DIV_SEARCH_CONTAINER>
-        
+
+            <DIV_SEARCH_LIST_CONTAINER>
             {posibleAnimes.length === 0 ?  '' : 
                 (
                 <DIV_SEARCH_LIST>
-                    {/* <div style={{backgroundColor: 'blue'}}> */}
                     {posibleAnimes.map(anime => {
 
                         const animeShow = {
@@ -87,10 +102,10 @@ const SearchBar = () => {
                             </CardLink>
                             )
                     })}
-                    {/* </div> */}
                 </DIV_SEARCH_LIST>
                 )
             }
+            </DIV_SEARCH_LIST_CONTAINER>
         </div>
      );
 }
