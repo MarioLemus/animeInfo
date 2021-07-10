@@ -9,6 +9,7 @@ import CardLink from './childrenComponents/CardLink';
 const DIV_CARD_CONTAINER = styled.div`
     width: 80%;
     margin: 0 auto;
+    margin-top: 2rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     min-height: 60em;
