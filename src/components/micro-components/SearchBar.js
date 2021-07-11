@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import CardLink from "../childrenComponents/CardLink";
 
 const DIV_SEARCH_CONTAINER = styled.div`
-    display: flex;    
+    display: flex;
+    // background-color: purple;    
     justify-content: center;
     align-items: center;
     height: 5em;
@@ -51,6 +52,8 @@ const DIV_LIST = styled.div`
 `;
 const DIV_SEARCH_LIST_CONTAINER = styled.div`
     width: 100%;
+    // background-color: violet;
+    min-height: 100vh;
     position: absolute;
     margin-top: -1rem;
 `;
@@ -60,6 +63,7 @@ const SearchBar = () => {
     const [posibleAnimes, setPosibleAnimes] = useState([]);
     const url = `https://kitsu.io/api/edge/anime?filter[text]=${searchAnime}`;
     const {currentAnimeShows} = useParams();
+    const [searchListState, setSearchListState] = useState(true);
 
     useEffect(() => {
         const handleSearch = async (url) => {
@@ -76,34 +80,44 @@ const SearchBar = () => {
         handleSearch(url)
     }, [url])
 
+    const handleCloseSearchFilteredList = () => {
+        setSearchListState(false);
+    }
+
+    const handleInputChange = (e) => {
+        setSearchAnime(e.target.value);
+        setSearchListState(true);
+    }
+
 
     return ( 
         <div>
-            <DIV_SEARCH_CONTAINER>
-            <div>
-                <INPUT_SEARCH type="text" placeholder="buscar anime" onChange={(e) =>setSearchAnime(e.target.value)}/>
-                {/* <BUTTON_SEARCH>buscar</BUTTON_SEARCH> */}
-            </div>
+            <DIV_SEARCH_CONTAINER onClick={handleCloseSearchFilteredList}>
+                <INPUT_SEARCH type="text" placeholder="buscar anime" onChange={(e) => handleInputChange(e)}/>
             </DIV_SEARCH_CONTAINER>
 
-            <DIV_SEARCH_LIST_CONTAINER>
+            <DIV_SEARCH_LIST_CONTAINER onClick={handleCloseSearchFilteredList}>
             {posibleAnimes.length === 0 ?  '' : 
                 (
-                <DIV_SEARCH_LIST>
-                    {posibleAnimes.map(anime => {
-
-                        const animeShow = {
-                            hasTitle : anime.attributes.canonicalTitle,
-                            hasId : anime.id
-                        }
-
-                        return(
-                            <CardLink currentAnimeShows={currentAnimeShows} animeShowId={animeShow.hasId}>
-                                <DIV_LIST key={animeShow.hasId}> {animeShow.hasTitle} </DIV_LIST>
-                            </CardLink>
-                            )
-                    })}
-                </DIV_SEARCH_LIST>
+                    searchListState && ( 
+                        <DIV_SEARCH_LIST>
+                            {posibleAnimes.map(anime => {
+                            
+                                const animeShow = {
+                                    hasId : anime.id,
+                                    hasTitle : anime.attributes.canonicalTitle
+                                }
+                            
+                                return(
+                                    <div key={animeShow.hasId}>
+                                        <CardLink currentAnimeShows={currentAnimeShows} animeShowId={animeShow.hasId}>
+                                            <DIV_LIST> {animeShow.hasTitle} </DIV_LIST>
+                                        </CardLink>
+                                    </div>    
+                                )
+                            })}
+                        </DIV_SEARCH_LIST>
+                    )
                 )
             }
             </DIV_SEARCH_LIST_CONTAINER>
