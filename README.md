@@ -1,0 +1,2 @@
+# AnimeInfo
+anime info aplication
