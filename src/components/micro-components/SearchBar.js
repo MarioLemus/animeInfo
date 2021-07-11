@@ -93,7 +93,7 @@ const SearchBar = () => {
     return ( 
         <div>
             <DIV_SEARCH_CONTAINER onClick={handleCloseSearchFilteredList}>
-                <INPUT_SEARCH type="text" placeholder="buscar anime" onChange={(e) => handleInputChange(e)}/>
+                <INPUT_SEARCH type="text" placeholder="Search anime" onChange={(e) => handleInputChange(e)}/>
             </DIV_SEARCH_CONTAINER>
 
             <DIV_SEARCH_LIST_CONTAINER onClick={handleCloseSearchFilteredList}>
