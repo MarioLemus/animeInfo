@@ -52,7 +52,7 @@ const DIV_LIST = styled.div`
 `;
 const DIV_SEARCH_LIST_CONTAINER = styled.div`
     width: 100%;
-    // background-color: violet;
+    //background-color: violet;
     min-height: 100vh;
     position: absolute;
     margin-top: -1rem;
@@ -95,7 +95,7 @@ const SearchBar = () => {
             <DIV_SEARCH_CONTAINER onClick={handleCloseSearchFilteredList}>
                 <INPUT_SEARCH type="text" placeholder="Search anime" onChange={(e) => handleInputChange(e)}/>
             </DIV_SEARCH_CONTAINER>
-
+            
             <DIV_SEARCH_LIST_CONTAINER onClick={handleCloseSearchFilteredList}>
             {posibleAnimes.length === 0 ?  '' : 
                 (
