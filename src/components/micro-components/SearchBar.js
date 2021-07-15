@@ -52,7 +52,7 @@ const DIV_LIST = styled.div`
 `;
 const DIV_SEARCH_LIST_CONTAINER = styled.div`
     width: 100%;
-    background-color: violet;
+    //background-color: violet;
     min-height: 100vh;
     position: absolute;
     margin-top: -1rem;

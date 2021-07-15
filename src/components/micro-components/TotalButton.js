@@ -13,20 +13,8 @@ const button = {
     fontFamily: "'Manrope', 'sans-serif'"
 }
 
-export const PrevButton = ({currentAnimeShows=0}) => {
-    return ( 
-        <Link style={button} to={`/AnimeInfo/${parseInt(currentAnimeShows)-12}`}>Previous</Link>
-     );
-};
+export const PrevButton = ({currentAnimeShows=0}) => <Link style={button} to={`/AnimeInfo/${parseInt(currentAnimeShows)-12}`}>Previous</Link>;
 
-export const NextButton = ({currentAnimeShows=0}) => {
-    return (
-        <Link style={button} to={`/AnimeInfo/${parseInt(currentAnimeShows)+12}`}>Next</Link>
-    );
-};
+export const NextButton = ({currentAnimeShows=0}) => <Link style={button} to={`/AnimeInfo/${parseInt(currentAnimeShows)+12}`}>Next</Link>;
 
-export const BackButton = ({currentAnimeShows=0}) => {
-    return ( 
-        <Link style={button} to={`/AnimeInfo/${currentAnimeShows}`}>go back</Link>
-     );
-};
+export const BackButton = ({currentAnimeShows=0}) => <Link style={button} to={`/AnimeInfo/${currentAnimeShows}`}>go back</Link>;
