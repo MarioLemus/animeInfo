@@ -60,9 +60,12 @@ const DIV_SEARCH_LIST_CONTAINER = styled.div`
 
 const SearchBar = () => {
     const [searchAnime, setSearchAnime] = useState('');
+    //data cruda
     const [posibleAnimes, setPosibleAnimes] = useState([]);
     const url = `https://kitsu.io/api/edge/anime?filter[text]=${searchAnime}`;
+    //objeto con data de las series
     const {currentAnimeShows} = useParams();
+    //estatus de la lista de resultados
     const [searchListState, setSearchListState] = useState(false);
 
     useEffect(() => {
@@ -79,10 +82,12 @@ const SearchBar = () => {
         handleSearch(url)
     }, [url])
 
+    //verifica que el esttado de la lista de resultados sea correcto
     const handleCloseSearchFilteredList = () => {
         setSearchListState(false);
     }
 
+    //barra de busqueda
     const handleInputChange = (e) => {
         setSearchAnime(e.target.value);
         setSearchListState(true);
@@ -98,6 +103,7 @@ const SearchBar = () => {
                 <INPUT_SEARCH type="text" placeholder="Search anime" onChange={(e) => handleInputChange(e)}/>
             </DIV_SEARCH_CONTAINER>
             
+            {/* verifica si el estatus es true y si lo es renderiza los elementos */}
             {searchListState && (
                 <DIV_SEARCH_LIST_CONTAINER>
 

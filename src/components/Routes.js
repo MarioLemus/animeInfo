@@ -1,7 +1,6 @@
 import React from "react";
 import Home from "./Home";
 import DetailView from "./DetailView";
-
 import {
         BrowserRouter as Router,
         Switch,

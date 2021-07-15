@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"    
-// import styled from "styled-components";
 
 const button = {
     backgroundColor: "red",
@@ -17,4 +16,4 @@ export const PrevButton = ({currentAnimeShows=0}) => <Link style={button} to={`/
 
 export const NextButton = ({currentAnimeShows=0}) => <Link style={button} to={`/AnimeInfo/${parseInt(currentAnimeShows)+12}`}>Next</Link>;
 
-export const BackButton = ({currentAnimeShows=0}) => <Link style={button} to={`/AnimeInfo/${currentAnimeShows}`}>go back</Link>;
+export const BackButton = ({currentAnimeShows=0}) => <Link style={button} to={`/AnimeInfo/${currentAnimeShows}`}>Go back</Link>;

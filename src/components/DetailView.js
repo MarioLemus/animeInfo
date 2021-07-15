@@ -86,11 +86,14 @@ const IMG = styled.img`
 
 
 const DetailView = () => {
-    const {currentAnimeShows} = useParams()
-    const {animeShowId} = useParams()
+    //cantidad de objetos deseados de la lista de animes
+    const {currentAnimeShows} = useParams();
+    //id especifico de la serie de anime
+    const {animeShowId} = useParams();
+    //data final, pero sin depurar en un nuevo objeto
     const [detailData, setDetailData] = useState();
     const url = `https://kitsu.io/api/edge/anime/${animeShowId}`;
-    
+    //data final, depurada para mejor lectura
     const finalData = {
         hasTitle: "" || 'Loading',
         hasImgSmall: "" || 'Loading',
@@ -104,6 +107,7 @@ const DetailView = () => {
         hasPopularityRank: "" || 'No data',
 
     };
+    //data depurada que se utiliza en la vista del cliente 
     const [animeShow, setAnimeShow] = useState(finalData);
 
     useEffect(() => {
@@ -113,7 +117,6 @@ const DetailView = () => {
                 const {data} = await res.json();
                 setDetailData(data);
             } 
-
             catch (error) {
                 console.log('No info was fetch check your internet connection');
             }

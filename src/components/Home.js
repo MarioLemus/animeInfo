@@ -52,11 +52,14 @@ const DIV_IMG_CONTAINER = styled.div`
 `;
 
 const Home = () => {
-
+    //data cruda proveniente del fetch
     const [animeData, setAnimeData] = useState([]);
+    //cantidad de objetos deseados de la lista de animes
     const { currentAnimeShows } = useParams();
     const url = `https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${currentAnimeShows}`;
+    //limite de la cantidad de data por objeto 
     const ANIMESHOWLIMIT = 11;
+    //numero de objetos base
     const startAnimeShow = parseInt(currentAnimeShows) || 0;
 
     useEffect(() => {
@@ -69,7 +72,6 @@ const Home = () => {
         fetchingAnimeData();
     }, [url])
 
-    console.log(`inicio del parametro: ${startAnimeShow}`)
     return(
         <div>
             <Navbar />    
@@ -86,6 +88,7 @@ const Home = () => {
 
                     return (
                         <DIV_CARD key={ animeShow.hasId }>
+                            {/* componente children que envuelve toda la tarjeta, su funcion es la de ser un link */}
                             <CardLink currentAnimeShows={currentAnimeShows} animeShowId={animeShow.hasId}>
                                 <DIV_IMG_CONTAINER>
                                     <IMG_PORTRAIT src={ animeShow.hasImgTiny } alt="" />
@@ -99,6 +102,7 @@ const Home = () => {
 
             <DIV_PAGINATION_BAR>
                 <DIV_BUTTON_CONTAINER>
+                    {/* renderizado condicional del botton previous cuando la data sea menor a 0*/}
                     {startAnimeShow > ANIMESHOWLIMIT && <PrevButton currentAnimeShows={ currentAnimeShows }/>}
                     <NextButton currentAnimeShows={ currentAnimeShows }/>
                 </DIV_BUTTON_CONTAINER>
