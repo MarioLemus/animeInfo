@@ -74,9 +74,9 @@ const DIV_BACK_BUTTON_HOLDER = styled.div`
     margin-top: 0.5rem;
 `;
 const DIV_IMG_CONTAINER = styled.div`
-    width: 110px;
-    height: 156px;
-    margin: 0 auto;
+    //width: 110px;
+    //height: 156px;
+    //margin: 0 auto;
 `;
 const IMG = styled.img`
     display: block;
@@ -93,6 +93,7 @@ const DetailView = () => {
     
     const finalData = {
         hasTitle: "" || 'Loading',
+        hasImgSmall: "" || 'Loading',
         hasSynopsis: "" || 'Loading',
         hasStartDate: "" || 'No data',
         hasFinished: "" || 'No data',
@@ -127,7 +128,7 @@ const DetailView = () => {
                 try {
                     setAnimeShow({
                         hasTitle: detailData.attributes.canonicalTitle,
-                        hasImg: detailData.attributes.posterImage.tiny,
+                        hasImgSmall: detailData.attributes.posterImage.small,
                         hasSynopsis: detailData.attributes.description,
                         hasStartDate: detailData.attributes.startDate,
                         hasFinished: detailData.attributes.endDate,
@@ -155,7 +156,7 @@ const DetailView = () => {
 
             <DIV_MAIN_CONTAINER>
                 <DIV_PRESENTATION_CARD>
-                    {animeShow.hasImg === null ? '' : <DIV_IMG_CONTAINER><IMG src={animeShow.hasImg} alt="" /></DIV_IMG_CONTAINER>}
+                    {animeShow.hasImg === null ? '' : <DIV_IMG_CONTAINER><IMG src={animeShow.hasImgSmall} alt="" /></DIV_IMG_CONTAINER>}
                     {animeShow.hasTitle === null ? '' : <P_PRESENTATION_TITLE>{animeShow.hasTitle}</P_PRESENTATION_TITLE>}
                     {animeShow.hasStatus === null ? '' : <P_INFO>Status: {animeShow.hasStatus}</P_INFO>}
 
