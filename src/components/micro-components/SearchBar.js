@@ -52,7 +52,7 @@ const DIV_LIST = styled.div`
 `;
 const DIV_SEARCH_LIST_CONTAINER = styled.div`
     width: 100%;
-    //background-color: violet;
+    background-color: violet;
     min-height: 100vh;
     position: absolute;
     margin-top: -1rem;
@@ -63,14 +63,13 @@ const SearchBar = () => {
     const [posibleAnimes, setPosibleAnimes] = useState([]);
     const url = `https://kitsu.io/api/edge/anime?filter[text]=${searchAnime}`;
     const {currentAnimeShows} = useParams();
-    const [searchListState, setSearchListState] = useState(true);
+    const [searchListState, setSearchListState] = useState(false);
 
     useEffect(() => {
         const handleSearch = async (url) => {
             try {
                 const res = await fetch(url);
                 const {data} = await res.json();
-                console.log(data)
                 setPosibleAnimes(data)
             } 
             catch (e) {
@@ -89,38 +88,46 @@ const SearchBar = () => {
         setSearchListState(true);
     }
 
+    useEffect(()=>{
+        console.table(posibleAnimes)
+    }, [posibleAnimes])
 
-    return ( 
-        <div>
-            <DIV_SEARCH_CONTAINER onClick={handleCloseSearchFilteredList}>
+        return ( 
+        <div onClick={handleCloseSearchFilteredList}>
+            <DIV_SEARCH_CONTAINER >
                 <INPUT_SEARCH type="text" placeholder="Search anime" onChange={(e) => handleInputChange(e)}/>
             </DIV_SEARCH_CONTAINER>
             
-            <DIV_SEARCH_LIST_CONTAINER onClick={handleCloseSearchFilteredList}>
-            {posibleAnimes.length === 0 ?  '' : 
-                (
-                    searchListState && ( 
+            {searchListState && (
+                <DIV_SEARCH_LIST_CONTAINER>
+
+                    {posibleAnimes.length === 0 ?  '' : 
+
                         <DIV_SEARCH_LIST>
                             {posibleAnimes.map(anime => {
-                            
+                          
                                 const animeShow = {
                                     hasId : anime.id,
                                     hasTitle : anime.attributes.canonicalTitle
                                 }
-                            
+                          
                                 return(
                                     <div key={animeShow.hasId}>
-                                        <CardLink currentAnimeShows={currentAnimeShows} animeShowId={animeShow.hasId}>
-                                            <DIV_LIST> {animeShow.hasTitle} </DIV_LIST>
+                                        <CardLink currentAnimeShows={currentAnimeShows}
+                                                  animeShowId={animeShow.hasId}>
+                                                      
+                                            <DIV_LIST>{animeShow.hasTitle}</DIV_LIST>
                                         </CardLink>
                                     </div>    
                                 )
                             })}
                         </DIV_SEARCH_LIST>
-                    )
-                )
-            }
-            </DIV_SEARCH_LIST_CONTAINER>
+
+                    }
+
+                </DIV_SEARCH_LIST_CONTAINER>
+            )}
+           
         </div>
      );
 }
