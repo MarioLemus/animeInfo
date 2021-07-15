@@ -5,7 +5,7 @@ const CardLink = ({children, currentAnimeShows=0, animeShowId}) => {
     const animeShowLink = {textDecoration: "none"};
 
     return ( 
-        <Link style={animeShowLink} to={`/anime/${currentAnimeShows}/details/${ animeShowId }`}>
+        <Link style={animeShowLink} to={`/AnimeInfo/${currentAnimeShows}/details/${ animeShowId }`}>
             {children}
         </Link>
      );

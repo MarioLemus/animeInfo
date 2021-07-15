@@ -15,18 +15,18 @@ const button = {
 
 export const PrevButton = ({currentAnimeShows=0}) => {
     return ( 
-        <Link style={button} to={`/anime/${parseInt(currentAnimeShows)-12}`}>Previous</Link>
+        <Link style={button} to={`/AnimeInfo/${parseInt(currentAnimeShows)-12}`}>Previous</Link>
      );
 };
 
 export const NextButton = ({currentAnimeShows=0}) => {
     return (
-        <Link style={button} to={`/anime/${parseInt(currentAnimeShows)+12}`}>Next</Link>
+        <Link style={button} to={`/AnimeInfo/${parseInt(currentAnimeShows)+12}`}>Next</Link>
     );
 };
 
 export const BackButton = ({currentAnimeShows=0}) => {
     return ( 
-        <Link style={button} to={`/anime/${currentAnimeShows}`}>go back</Link>
+        <Link style={button} to={`/AnimeInfo/${currentAnimeShows}`}>go back</Link>
      );
 };
