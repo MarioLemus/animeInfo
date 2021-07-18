@@ -14,7 +14,7 @@ const Routes = () => {
             <Router>
                 <Switch>
                     <Route exact path="/AnimeInfo/" component={Home} />
-                    <Route exact path="/AnimeInfo/:currentAnimeShows" component={Home} />
+                    <Route exact path="/AnimeInfo/fr:currentAnimeShows" component={Home} />
                     <Route exact path="/AnimeInfo/:currentAnimeShows/details/:animeShowId" component={DetailView} />
                     <Route path="*" component={Error404} />
                 </Switch>
